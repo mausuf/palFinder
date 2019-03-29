@@ -1,0 +1,17 @@
+  {
+    "name": "palfinder",
+    "version": "0.1",
+    "description": "Helps you find a pal!",
+    "main": "server.js",
+    "dependencies": {
+      "express": "^4.16.3",
+      "path": "^0.12.7"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server.js",
+      "watch": "nodemon server.js"
+    },
+    "author": "mausuf",
+    "license": "ISC"
+  }
