@@ -71,7 +71,7 @@
                 <h5>
                   1
                 </h5>
-                <select id="question1">
+                <select id="q1">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -86,7 +86,7 @@
                 <h5>
                   2
                 </h5>
-                <select id="question2">
+                <select id="q2">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -101,7 +101,7 @@
                 <h5>
                   3
                 </h5>
-                <select id="question3">
+                <select id="q3">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -114,7 +114,7 @@
               <div class="input-field col s12">
                 <h3>Question 4</h3>
                 <h5>4</h5>
-                <select id="question4">
+                <select id="q4">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -127,7 +127,7 @@
               <div class="input-field col s12">
                 <h3>Question 5</h3>
                 <h5>5</h5>
-                <select id="question5">
+                <select id="q5">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -142,7 +142,7 @@
                 <h5>
                   6
                 </h5>
-                <select id="question6">
+                <select id="q6">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -157,7 +157,7 @@
                 <h5>
                   7
                 </h5>
-                <select id="question7">
+                <select id="q7">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -170,7 +170,7 @@
               <div class="input-field col s12">
                 <h3>Question 8</h3>
                 <h5>8</h5>
-                <select id="question8">
+                <select id="q8">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -185,7 +185,7 @@
                 <h5>
                   9
                 </h5>
-                <select id="question9">
+                <select id="q9">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -200,7 +200,7 @@
                 <h5>
                   10
                 </h5>
-                <select id="question10">
+                <select id="q10">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="1">1 (Strongly Disagree)</option>
                   <option value="2">2</option>
@@ -209,16 +209,33 @@
                   <option value="5">5 (Strongly Agree)</option>
                 </select>
               </div>
-            </div>
-          </div>
-          <!-- ./Survey Questions Card -->
-        </div>
-        <!--./Column-->
-      </div>
-      <!--./Row-->
 
-      <br>
-      
+              <br />
+              <br />
+
+              <!-- Survey Submit Button -->
+              <div>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  name="action"
+                  id="submitButton"
+                >
+                  Submit Responses
+                </button>
+              </div>
+
+              <!--./Card Body-->
+            </div>
+            <!-- ./Survey Questions Card -->
+          </div>
+          <!--./Column-->
+        </div>
+        <!--./Row-->
+      </div>
+
+      <br />
+
       <div clas="card">
         <div class="card-body">
           <footer class="footer">
@@ -234,3 +251,57 @@
     </div>
   </body>
 </html>
+
+<!-- -------- -->
+<!-- END HTML -->
+<!-- -------- -->
+
+<script type="text/javascript">
+  // Submit Button
+  $("#submitButton").on("click", function(event) {
+    event.preventDefault();
+    // User Survey Answers
+    var userInput = {
+      name: $("#userName")
+        .val()
+        .trim(),
+      scores: [
+        $("#q1")
+          .val()
+          .trim(),
+        $("#q2")
+          .val()
+          .trim(),
+        $("#q3")
+          .val()
+          .trim(),
+        $("#q4")
+          .val()
+          .trim(),
+        $("#q5")
+          .val()
+          .trim(),
+        $("#q6")
+          .val()
+          .trim(),
+        $("#q7")
+          .val()
+          .trim(),
+        $("#q8")
+          .val()
+          .trim(),
+        $("#q9")
+          .val()
+          .trim(),
+        $("#q10")
+          .val()
+          .trim()
+      ]
+    };
+
+
+
+
+    
+  });
+</script>
