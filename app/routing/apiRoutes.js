@@ -3,7 +3,7 @@
 // We are linking our routes to a series of "data" sources.
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
-
+var path = require('path');
 var friends = require("../data/friends.js");
 
 // ===============================================================================
@@ -17,6 +17,7 @@ module.exports = function(app) {
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
+  //Get List Of All Pals
   app.get("/api/friends", function(req, res) {
     res.json(friends);
   });
@@ -26,13 +27,34 @@ module.exports = function(app) {
   // In each of the below cases, when a user submits form data (a JSON object)
   // ...the JSON is pushed to the appropriate JavaScript array
   // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
+  //Add User Information to Pal
   app.post("/api/friends", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body parsing middleware
+    var userInput = req.body;
+    var userScore = userInput.scores;
+
+    //Calculate Pal Match
+    var palName;
+    var palImage;
+    var scoreDifference = 50000;
+
+    //Loop Through All Pals From friends.js
+    for (var i=0; i<friends.length; i++) {
+      
+      //Loop Through Each Question's Response From survey.html
+      var difference = 0 
+      for (var q=0; q<userScore.length; q++) {
+          difference += Math.abs(friends[i].scores[q] - userScore[q]);
+      }
+      if (difference < scoreDifference)
+
+      scoreDifference = difference;
+      palName = friends[i].name
+      palImage = friends[i].photo
+    }
+
     friends.push(req.body);
     res.json(true);
   });
