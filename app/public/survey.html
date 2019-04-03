@@ -380,8 +380,8 @@
     $.post("/api/friends", userInput)
     .done(function(data) {
       
-				$("#yourPal").text(data.matchedPalName);
-				$("#yourPalPhoto").attr("src", data.matchedPalPhoto);
+				$("#yourPal").html(data.palName);
+				$("#yourPalPhoto").attr("src", data.palImage);
         $("#palModal").modal("show");
       });
       
