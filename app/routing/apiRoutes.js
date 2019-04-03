@@ -33,8 +33,10 @@ module.exports = function(app) {
   app.post("/api/friends", function(req, res) {
     // req.body is available since we're using the body parsing middleware
     var userInput = req.body;
-    var userScore = userInput.scores;
+    var userScore = userInput.score;
 
+    console.log(userInput);
+    console.log(userScore);
     //Calculate Pal Match
     var palName;
     var palImage;
@@ -44,19 +46,18 @@ module.exports = function(app) {
     for (var i=0; i<friends.length; i++) {
       
       //Loop Through Each Question's Response From survey.html
-      var difference = 0 
+      var difference = 0; 
       for (var q=0; q<userScore.length; q++) {
-          difference += Math.abs(friends[i].scores[q] - userScore[q]);
-      }
-      if (difference < scoreDifference)
-
+          difference += Math.abs(friends[i].score[q] - userScore[q]);}
+      if (difference < scoreDifference) {
       scoreDifference = difference;
-      palName = friends[i].name
-      palImage = friends[i].photo
+      palName = friends[i].name;
+      palImage = friends[i].photo;
+      }
     }
 
-    friends.push(req.body);
-    res.json(true);
+    friends.push(userInput);
+    res.json({status: 'OK', palName: palName, palImage: palImage});
   });
 
 };
