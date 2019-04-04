@@ -17,12 +17,24 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     
-
+    <!-- <link rel="stylesheet" type="text/css" href="/app/css/style.css"/> -->
+    <!--------->
+    <!-- CSS -->
+    <style>
+      .box{
+      background-color: #FFF9ED!important;
+      border: #B3A894 3px solid!important;
+      }
+      .headerBlock, .card{
+      color: #B3A894;
+      background-color: #D4FFE8;
+      }
+    </style>
   </head>
 
   <body>
-    <div class="container">
-      <div class="jumbotron">
+    <div class="container box">
+      <div class="jumbotron headerBlock card">
         <h1 class="text-center"><span class="fa fa-fire"></span> Pals</h1>
         <hr />
         <h2 class="text-center">Take the survey to find a match!</h2>
@@ -371,10 +383,7 @@
       ]
     };
 
-    console.log(userInput);
-
-
-   
+    // console.log(userInput);
 
     // Ajax Call To Get Matched Pal
     $.post("/api/friends", userInput)
