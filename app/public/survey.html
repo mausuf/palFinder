@@ -96,7 +96,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q1">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -117,7 +117,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q2">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -135,7 +135,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q3">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -153,7 +153,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q4">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -173,7 +173,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q5">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -191,7 +191,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q6">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -209,7 +209,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q7">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -227,7 +227,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q8">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -248,7 +248,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q9">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -269,7 +269,7 @@
                     <td>
                       <div class="input-field col s12">
                         <select id="q10">
-                          <option value="" disabled selected
+                          <option value=""
                             >Choose your option</option
                           >
                           <option value="1">1 (Strongly Disagree)</option>
@@ -352,50 +352,53 @@
 
 <script type="text/javascript">
   // Submit Button
-  $("#submitButton").on("click", function(event) {
+  $("#submitButton").on("click", function (event) {
     event.preventDefault();
-    // User Survey Answers
-    var userInput = {
-      name: $("#userName")
-        .val()
-        .trim(),
-      score: [
-        $("#q1")
-          .val(),
-        $("#q2")
-          .val(),
-        $("#q3")
-          .val(),
-        $("#q4")
-          .val(),
-        $("#q5")
-          .val(),
-        $("#q6")
-          .val(),
-        $("#q7")
-          .val(),
-        $("#q8")
-          .val(),
-        $("#q9")
-          .val(),
-        $("#q10")
+
+    //Form Validation
+    if ($("#userName").val() === "" || $("#q1").val() == "" || $("#q2").val() === "" || $("#q3").val() == "" || $("#q4").val() == "" || $("#q5").val() === "" || $("#q6").val() == "" || $("#q7").val() === "" || $("#q8").val() === "" || $("#q9").val() === "" || $("#q10").val() === "") {
+      alert("Please fill out all fields.");
+    } else {
+      // User Survey Answers
+      var userInput = {
+        name: $("#userName")
           .val()
-      ]
+          .trim(),
+        score: [
+          $("#q1")
+            .val(),
+          $("#q2")
+            .val(),
+          $("#q3")
+            .val(),
+          $("#q4")
+            .val(),
+          $("#q5")
+            .val(),
+          $("#q6")
+            .val(),
+          $("#q7")
+            .val(),
+          $("#q8")
+            .val(),
+          $("#q9")
+            .val(),
+          $("#q10")
+            .val()
+        ]
+      };
+
+      // console.log(userInput);
+
+      // Ajax Call To Get Matched Pal
+      $.post("/api/friends", userInput)
+        .done(function (data) {
+
+          $("#yourPal").html(data.palName);
+          $("#yourPalPhoto").attr("src", data.palImage);
+          $("#palModal").modal("show");
+        });
     };
-
-    // console.log(userInput);
-
-    // Ajax Call To Get Matched Pal
-    $.post("/api/friends", userInput)
-    .done(function(data) {
-      
-				$("#yourPal").html(data.palName);
-				$("#yourPalPhoto").attr("src", data.palImage);
-        $("#palModal").modal("show");
-      });
-      
-
     //--------------------
-
   });
 </script>
