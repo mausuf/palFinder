@@ -4,8 +4,7 @@
 // ==============================================================================
 
 var express = require("express");
-var path = require("path");
-// var mime = require("mime");
+var bodyParser = require("body-parser");
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -18,18 +17,19 @@ var app = express();
 // Sets an initial port.
 var PORT = process.env.PORT || 8080;
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Create application json parser
+var jsonParser = bodyParser.json();
 
-// ================================================================================
-// ROUTER
-// The below points our server to a series of "route" files.
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
-// ================================================================================
+// Create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-require("./app/routing/apiRoutes")(app);
-require("./app/routing/htmlRoutes")(app);
+// Setup the Express app to handle data parsing.
+// Parse various different custom JSON types as JSON
+app.use(bodyParser.json({ type: "application/*+json" }));
+// Parse into buffer
+app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
+// Parse an HTML body into a string
+app.use(bodyParser.text({ type: "text/html" }));
 
 // =============================================================================
 // LISTENER
