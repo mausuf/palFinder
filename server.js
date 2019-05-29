@@ -17,11 +17,7 @@ var app = express();
 // Sets an initial port.
 var PORT = process.env.PORT || 8080;
 
-// Create application json parser
-var jsonParser = bodyParser.json();
-
-// Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup the Express app to handle data parsing.
 // Parse various different custom JSON types as JSON
@@ -30,6 +26,10 @@ app.use(bodyParser.json({ type: "application/*+json" }));
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 // Parse an HTML body into a string
 app.use(bodyParser.text({ type: "text/html" }));
+
+// Require routes
+require("./app/routing/htmlRoutes")(app);
+require("./app/routing/apiRoutes")(app);
 
 // =============================================================================
 // LISTENER

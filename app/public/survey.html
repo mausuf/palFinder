@@ -16,9 +16,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
-    <!-- <link rel="stylesheet" type="text/css" href="/app/css/style.css"/> -->
-    <!--------->
     <!-- CSS -->
     <style>
       .box{
@@ -95,7 +92,7 @@
                     <td>I would like to be famous.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q1">
+                        <select id="q1" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -116,7 +113,7 @@
                     </td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q2">
+                        <select id="q2" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -134,7 +131,7 @@
                     <td>I like to drench my pancakes in syrup.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q3">
+                        <select id="q3" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -152,7 +149,7 @@
                     <td>I don't care if people perceive me as weird.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q4">
+                        <select id="q4" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -172,7 +169,7 @@
                     </td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q5">
+                        <select id="q5" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -190,7 +187,7 @@
                     <td>I plan out all of my trips in detail.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q6">
+                        <select id="q6" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -208,7 +205,7 @@
                     <td>I easily get bored.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q7">
+                        <select id="q7" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -226,7 +223,7 @@
                     <td>I think people are inherently born good.</td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q8">
+                        <select id="q8" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -247,7 +244,7 @@
                     </td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q9">
+                        <select id="q9" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -268,7 +265,7 @@
                     </td>
                     <td>
                       <div class="input-field col s12">
-                        <select id="q10">
+                        <select id="q10" class="chosen">
                           <option value=""
                             >Choose your option</option
                           >
@@ -297,6 +294,15 @@
                 >
                   Submit Responses
                 </button>
+                <button
+                class="btn btn-secondary"
+                type="button"
+                name="action"
+                id="refreshButton"
+                onClick="window.location.href=window.location.href"
+              >
+                Take Survey Again!
+              </button>
               </div>
 
               <!--./Card Body-->
@@ -315,7 +321,7 @@
           <footer class="footer">
             <div class="container">
               <p>
-                <a href="/api/survey">API Survey Link</a>
+                <a href="/api/friends">API Pals Link!</a>
               </p>
             </div>
           </footer>
@@ -332,7 +338,7 @@
             </div>
             <div class="modal-body">
               <h2 id="yourPal"></h2>
-              <img id="yourPalPhoto" src="#">
+              <img id="yourPalPhoto" src=""/>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -351,54 +357,53 @@
 <!-- -------- -->
 
 <script type="text/javascript">
-  // Submit Button
-  $("#submitButton").on("click", function (event) {
-    event.preventDefault();
 
-    //Form Validation
-    if ($("#userName").val() === "" || $("#q1").val() == "" || $("#q2").val() === "" || $("#q3").val() == "" || $("#q4").val() == "" || $("#q5").val() === "" || $("#q6").val() == "" || $("#q7").val() === "" || $("#q8").val() === "" || $("#q9").val() === "" || $("#q10").val() === "") {
-      alert("Please fill out all fields.");
-    } else {
-      // User Survey Answers
-      var userInput = {
-        name: $("#userName")
-          .val()
-          .trim(),
-        score: [
-          $("#q1")
-            .val(),
-          $("#q2")
-            .val(),
-          $("#q3")
-            .val(),
-          $("#q4")
-            .val(),
-          $("#q5")
-            .val(),
-          $("#q6")
-            .val(),
-          $("#q7")
-            .val(),
-          $("#q8")
-            .val(),
-          $("#q9")
-            .val(),
-          $("#q10")
-            .val()
-        ]
-      };
-
-      // console.log(userInput);
-
-      // Ajax Call To Get Matched Pal
-      $.post("/api/friends", userInput)
-        .done(function (data) {
-
-          $("#yourPal").html(data.palName);
-          $("#yourPalPhoto").attr("src", data.palImage);
-          $("#palModal").modal("show");
-        });
+// Capture form inputs
+$("#submitButton").on("click", function(event) {
+  event.preventDefault();
+  // Form validation
+  function validateForm() {
+    var isValid = true;
+    $(".validate").each(function() {
+      if ($(this).val() === "") {
+        isValid = false;
+      }
+    });
+    $(".chosen").each(function() {
+      if ($(this).val() === "") {
+        isValid = false;
+      }
+    });
+    return isValid;
+  }
+  // If all required fields are filled
+  if (validateForm()) {
+    // Create an object for the user"s data
+    var userData = {
+      name: $("#userName").val(),
+      score: [
+        $("#q1").val(),
+        $("#q2").val(),
+        $("#q3").val(),
+        $("#q4").val(),
+        $("#q5").val(),
+        $("#q6").val(),
+        $("#q7").val(),
+        $("#q8").val(),
+        $("#q9").val(),
+        $("#q10").val()
+      ]
     };
-    //--------------------
-  });
+    // AJAX post
+    $.post("/api/friends", userData, function(data) {
+      // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+      $("#yourPal").text(data.palName);
+      $("#yourPalPhoto").attr("src", data.palImage);
+      // Show the Pal with the best match
+      $("#palModal").modal("toggle");
+    });
+  } else {
+    alert("Please fill out all fields, thanks :)");
+  }
+});
 </script>
