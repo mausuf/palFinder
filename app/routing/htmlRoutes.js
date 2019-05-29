@@ -17,13 +17,13 @@ module.exports = function(app) {
 
   //Survey Page
   app.get("/survey", function(req, res) {
-    res.json(path.join(__dirname, "../public/survey.html"));
+    res.sendFile(path.join(__dirname, "../public/survey.html"));
     // res.setHeader("Content-Type", mime.load("text/css"));
   });
 
   // Home Page
   app.get("/", function(req, res) {
-    res.json(path.join(__dirname, "../public/home.html"));
+    res.sendFile(path.join(__dirname, "../public/home.html"));
     // res.setHeader("Content-Type", mime.load("text/css"));
   });
 };
