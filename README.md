@@ -1,4 +1,4 @@
-##PalFinder
+## PalFinder
 Take a 10 question survey to find out who your best pal is!
 
 
