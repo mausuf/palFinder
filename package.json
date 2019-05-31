@@ -1,6 +1,6 @@
 {
   "name": "palfinder",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "Helps you find a pal!",
   "main": "server.js",
   "dependencies": {
