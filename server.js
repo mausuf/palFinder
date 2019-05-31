@@ -18,15 +18,19 @@ var app = express();
 // Sets an initial port.
 var PORT = process.env.PORT || 8080;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('app/public'))
 
-// Setup the Express app to handle data parsing.
-// Parse various different custom JSON types as JSON
-app.use(bodyParser.json({ type: "application/*+json" }));
-// Parse into buffer
-app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
-// Parse an HTML body into a string
-app.use(bodyParser.text({ type: "text/html" }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// // Setup the Express app to handle data parsing.
+// // Parse various different custom JSON types as JSON
+// app.use(bodyParser.json({ type: "application/*+json" }));
+// // Parse into buffer
+// app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
+// // Parse an HTML body into a string
+// app.use(bodyParser.text({ type: "text/html" }));
 
 // Require routes
 require("./app/routing/htmlRoutes")(app);
